@@ -24,8 +24,11 @@ if __name__ == '__main__':
 
         i = 1
         for sentences in task['sentences']:
+            prompt, negative = prompt_generator.generate(trans_util.translate(sentences))
+
             record = {'txt': sentences, 'index': i,
-                      'prompt': prompt_generator.generate(trans_util.translate(sentences))}
+                      'prompt': prompt,
+                      'negative': negative}
             records.append(record)
             i += 1
 
