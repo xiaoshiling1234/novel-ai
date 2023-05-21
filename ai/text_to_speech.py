@@ -7,13 +7,13 @@ from tencentcloud.common.profile.client_profile import ClientProfile
 from tencentcloud.common.profile.http_profile import HttpProfile
 from tencentcloud.tts.v20190823 import tts_client, models
 
-import common_config
+from common_config import *
 from utils import wav_util
 
 
 def text_to_wav(Text, output_file):
     try:
-        cred = credential.Credential(common_config.TCLOUD_SECRET_ID, common_config.TCLOUD_SECRET_KEY)
+        cred = credential.Credential(TCLOUD_SECRET_ID, TCLOUD_SECRET_KEY)
         # 实例化一个http选项，可选的，没有特殊需求可以跳过
         httpProfile = HttpProfile()
         httpProfile.endpoint = "tts.tencentcloudapi.com"
