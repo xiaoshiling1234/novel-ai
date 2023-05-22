@@ -7,6 +7,7 @@ from ai import prompt_generator
 from ai.cn_trans_to_en import cn_trans_to_en
 from common_config import *
 from utils import excel_util
+from utils.chat_gpt_util import chat_model_prompt_1
 
 
 def cut_sentence(text):
@@ -31,18 +32,10 @@ def generate_subtask(task_path, out_root_dir):
         # 关键词未生成->关键词已生成->AI绘图完成->文字图片生成视频完成
         for sentences in task['sentences']:
             try:
-                en_sentence = cn_trans_to_en(sentences)
-                sleep(TRANS_SLEEP_TIME)
-                # prompt = ""
-                #
-                # retry_times = 0
-                # while (prompt == "") and (retry_times < MAX_RETRY_TIMES):
-                #     if retry_times > 0:
-                #         print("提示词:", en_sentence, ",生成失败重试第", retry_times, "次")
-                #     prompt = prompt_generator.generate(en_sentence)
-                #     retry_times += 1
+                prompt = chat_model_prompt_1(sentences) + TAG_PREFIX
+                sleep(1)
                 record = {'txt': sentences, 'index': i,
-                          'prompt': en_sentence+TAG_PREFIX,
+                          'prompt': prompt,
                           'negative': NEGATIVE,
                           'keywords_status': '关键词未生成',
                           'picture_status': '图片未生成',
@@ -50,8 +43,7 @@ def generate_subtask(task_path, out_root_dir):
                           'video_status': '视频未生成',
                           'picture_path': '',
                           'voice_path': '',
-                          "video_path": '',
-                          "en_sentence": en_sentence}
+                          "video_path": ''}
                 records.append(record)
                 i += 1
             except Exception as e:

@@ -1,65 +1,55 @@
-# Import necessary libraries
-import os
-import sys
 
 import cv2
 import numpy as np
-import moviepy.editor as mp
+import os
 
-os.chdir(os.path.abspath("../"))
-print(os.getcwd())
-# Function to concatenate images with transition effect
-def concatenate_images(images, transition_duration):
-    if len(images) == 0:  # Check if the images list is empty
-        return []
-    concatenated_images = []
-    for i in range(len(images) - 1):
-        concatenated_images.append(images[i])
-        for t in np.linspace(0, 1, transition_duration):
-            alpha = t
-            beta = 1 - t
-            gamma = 0
-            blended_image = cv2.addWeighted(images[i], alpha, images[i + 1], beta, gamma)
-            concatenated_images.append(blended_image)
-    concatenated_images.append(images[-1])
-    return concatenated_images
+def compose_video(image_path, audio_path, output_path, output_width, output_height):
+    # Load image
+    img = cv2.imread(image_path)
+    img_height, img_width, _ = img.shape
 
-# Function to concatenate audio files without abruptness
-def concatenate_audio(audio_files):
-    concatenated_audio = audio_files[0]
-    for i in range(1, len(audio_files)):
-        concatenated_audio = mp.concatenate_audioclips([concatenated_audio, audio_files[i]])
-    return concatenated_audio
+    # Create video writer
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    video_writer = cv2.VideoWriter(output_path, fourcc, 30, (output_width, output_height))
 
-import pandas as pd
+    # Create animation
+    for i in range(30):
+        # Create black background
+        frame = np.zeros((output_height, output_width, 3), np.uint8)
 
-# Read the Excel file
-excel_data = pd.read_excel(r"D:\novel-ai\data\output\爽文\story_1\task.xlsx")
+        # Calculate position of image
+        x = int((output_width - img_width) / 2)
+        y = int((output_height - img_height) / 2)
 
-# Extract the picture paths from the Excel file
-picture_paths = excel_data["picture_path"].tolist()
+        # Add image to frame
+        if img_height > output_height or img_width > output_width:
+            img = cv2.resize(img, (output_width, output_height))
+        if img_height != output_height or img_width != output_width:
+            os.remove(output_path)
+            raise ValueError("Image dimensions do not match output dimensions")
+        frame[y:y+img_height, x:x+img_width] = img
 
-audio_paths = excel_data["voice_path"].tolist()
+        # Add animation
+        alpha = i / 30
+        overlay = np.zeros((output_height, output_width, 3), np.uint8)
+        overlay[:, :, 0] = 255 * alpha
+        overlay[:, :, 1] = 255 * alpha
+        overlay[:, :, 2] = 255 * alpha
+        frame = cv2.addWeighted(frame, 1 - alpha, overlay, alpha, 0)
 
-# Load images from the picture paths
-images = [cv2.imread(path) for path in picture_paths]
-audio_files = [mp.AudioFileClip(path) for path in audio_paths]
+        # Write frame to video
+        video_writer.write(frame)
 
-# Check if any image is None and remove it from the list
-images = [image for image in images if image is not None]
+    # Release video writer
+    video_writer.release()
 
-# Concatenate images and audio files
-concatenated_images = concatenate_images(images, 30)
-concatenated_audio = concatenate_audio(audio_files)
+    # Add audio to video
+    os.system(f'ffmpeg -i {output_path} -i {audio_path} -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 -shortest {output_path}_audio.mp4')
 
-# Save the concatenated images as a video
-fourcc = cv2.VideoWriter_fourcc(*'XVID')
-out = cv2.VideoWriter('output.avi', fourcc, 30.0, (concatenated_images[0].shape[1], concatenated_images[0].shape[0]))
-for image in concatenated_images:
-    out.write(image)
-out.release()
 
-# Add the concatenated audio to the video
-video = mp.VideoFileClip("output.avi")
-video_with_audio = video.set_audio(concatenated_audio)
-video_with_audio.write_videofile("final_output.mp4", codec="libx264", audio_codec="aac")
+try:
+    compose_video(r"E:\novel-ai\core\1.png",r"E:\novel-ai\data\output\西游记\story_3\voice1\1.wav","out1.mp4",640, 480)
+except ValueError as e:
+    print(e)
+
+

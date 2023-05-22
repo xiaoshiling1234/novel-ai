@@ -1,11 +1,11 @@
 TCLOUD_APP_ID = 1317687480
-TCLOUD_SECRET_ID = "AKIDf9RhkY8UZT7WjjhMn27xjMkt1zjYAZkg"
-TCLOUD_SECRET_KEY = "FIWKxJQIuIbjogYHmwxyriKi0IOG8nIe"
+TCLOUD_SECRET_ID = "AKIDEONBKYoA5oMiqtskbO1SlxyoTuBRPAoJ"
+TCLOUD_SECRET_KEY = "XCnHfs398yNfllcImASjrm9MWUPNLKSJ"
 WAV_CONFIG_SAMPLERATE = 16000
 WAV_CONFIG_CHANNELS = 1
 WAV_CONFIG_BITSPERSAMPLE = 16
 
-SD_TXT_TO_IMG_URL = "https://u67953-9e38-26fc4777.neimeng.seetacloud.com:6443/sdapi/v1/txt2img"
+SD_TXT_TO_IMG_URL = "http://region-3.seetacloud.com:12744/sdapi/v1/txt2img"
 SD_DEFAULT_BATCH_SIZE = 1
 SD_DEFAULT_N_ITER = 1
 SD_DEFAULT_STEPS = 20
@@ -32,3 +32,7 @@ TAG_PREFIX = "best quality ,masterpiece, illustration, an extremely delicate and
 NEGATIVE = "NSFW,sketches, (worst quality:2), (low quality:2), (normal quality:2), lowres, normal quality, ((monochrome)), ((grayscale)), skin spots, acnes, skin blemishes, bad anatomy,(long hair:1.4),DeepNegative,(fat:1.2),facing away, looking away,tilted head, {Multiple people}, lowres,bad anatomy,bad hands, text, error, missing fingers,extra digit, fewer digits, cropped, worstquality, low quality, normal quality,jpegartifacts,signature, watermark, username,blurry,bad feet,cropped,poorly drawn hands,poorly drawn face,mutation,deformed,worst quality,low quality,normal quality,jpeg artifacts,signature,watermark,extra fingers,fewer digits,extra limbs,extra arms,extra legs,malformed limbs,fused fingers,too many fingers,long neck,cross-eyed,mutated hands,polar lowres,bad body,bad proportions,gross proportions,text,error,missing fingers,missing arms,missing legs,extra digit, extra arms, extra leg, extra foot,"
 # AI绘画并发度
 MAX_WORKERS = 4
+
+# chatgpt
+API_2D_OPENAI_CHAT_URL = "https://openai.api2d.net/v1/chat/completions"
+API_2D_FORWARD_KEY = "fk200442-MEUXSd5vgIxgF42TJKcOlRO91EMXGHs7"
