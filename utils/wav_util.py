@@ -15,7 +15,7 @@ def write_wav_from_json(Audio, path):
         wav_file.setsampwidth(common_config.WAV_CONFIG_BITSPERSAMPLE // 8)
         wav_file.setframerate(common_config.WAV_CONFIG_SAMPLERATE)
         wav_file.writeframes(decoded_wav)
-    trim_audio(path, 0.2, 0.2)
+    trim_audio(path, 0.1, 0.1)
 
 
 def trim_audio(file_path, start_trim, end_trim):

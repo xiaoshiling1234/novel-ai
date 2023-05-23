@@ -1,55 +1,223 @@
+# -*- coding: utf-8 -*-
+from core.generate_subtask import cut_sentence
 
-import cv2
-import numpy as np
-import os
+story = """
+地狱十八层。昏暗的空间，头顶上飘着一层血云，将整个世界都映成一片血色。唰唰唰…
 
-def compose_video(image_path, audio_path, output_path, output_width, output_height):
-    # Load image
-    img = cv2.imread(image_path)
-    img_height, img_width, _ = img.shape
+        十八层尽头，一位看上去毫不起眼的阴差，手中拿着扫把，清扫着地上的枯草与杂物。
 
-    # Create video writer
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    video_writer = cv2.VideoWriter(output_path, fourcc, 30, (output_width, output_height))
+        阴差是个青年的模样，看上去二十七八岁，剑眉星目，轮廓棱角分明。
 
-    # Create animation
-    for i in range(30):
-        # Create black background
-        frame = np.zeros((output_height, output_width, 3), np.uint8)
+        一看就知道，活着的时候，是个靠脸吃饭的帅小伙。
 
-        # Calculate position of image
-        x = int((output_width - img_width) / 2)
-        y = int((output_height - img_height) / 2)
+        在地狱十八层，关押着许多强大的阴魂。
 
-        # Add image to frame
-        if img_height > output_height or img_width > output_width:
-            img = cv2.resize(img, (output_width, output_height))
-        if img_height != output_height or img_width != output_width:
-            os.remove(output_path)
-            raise ValueError("Image dimensions do not match output dimensions")
-        frame[y:y+img_height, x:x+img_width] = img
+        有些阴魂高达几百丈，甚至上千丈。
 
-        # Add animation
-        alpha = i / 30
-        overlay = np.zeros((output_height, output_width, 3), np.uint8)
-        overlay[:, :, 0] = 255 * alpha
-        overlay[:, :, 1] = 255 * alpha
-        overlay[:, :, 2] = 255 * alpha
-        frame = cv2.addWeighted(frame, 1 - alpha, overlay, alpha, 0)
+        从远处看去，竟然与天地连接在一起。
 
-        # Write frame to video
-        video_writer.write(frame)
+        “这道阴魂旁边是个签到的好地方。”
 
-    # Release video writer
-    video_writer.release()
+        青年嘴中嘟囔了一句，手中拿着扫把，向着那尊高达千丈的阴魂旁边扫过去。
 
-    # Add audio to video
-    os.system(f'ffmpeg -i {output_path} -i {audio_path} -c:v copy -c:a aac -strict experimental -map 0:v:0 -map 1:a:0 -shortest {output_path}_audio.mp4')
+        唰唰唰…
 
+        阴魂的气息极其恐怖，仿佛任何一个意念，都可以毁天灭地。
 
-try:
-    compose_video(r"E:\novel-ai\core\1.png",r"E:\novel-ai\data\output\西游记\story_3\voice1\1.wav","out1.mp4",640, 480)
-except ValueError as e:
-    print(e)
+        若是他想动这个阴差，只需要一个念头，就可以将阴差杀死一万次。
 
+        可是，他却没有动手。
 
+        这里是地府，若是随意杀害阴差，会导致罪孽加重。
+
+        因为杀个小喽喽，害自己在这地狱里多待上几百年，可不值得。
+
+        唰唰唰…
+
+        阴差拿着扫把，边走边扫，终于走到签到地点。
+
+        “叮！您在地狱十八层签到，获得‘混沌魔神枪’！”
+
+        青年名为李恒。
+
+        曾经是一位穿越者。
+
+        或者说，活着的时候，是穿越者。
+
+        现在的他，是一名地府阴差。
+
+        负责的是杂役工作。
+
+        唰唰唰…
+
+        扫把挥动，尘土飞扬。
+
+        从远处看去，巍峨的巨人，就像一座连接天地的柱子。
+
+        那扫地的阴差，如同地上爬行的蝼蚁。
+
+        巨人脚上一根汗毛，都如同大柱子一样，随意的拍打在阴差身上，都能要他小命。
+
+        李恒抬头望向巍峨挺立的巨人，使劲咽了下口水。
+
+        “什么时候，我才能成为这样的强者？”
+
+        “纵使死亡，仅剩灵魂，也能撼天动地！”
+
+        在地狱中，关押的都是非常恐怖的阴魂。
+
+        甚至有些阴魂，在死前是大帝之境。
+
+        就像刚才看到的那尊巨人，就是大帝级别的阴魂。
+
+        哪怕只是灵魂形态，一个念头，也能毁天灭地。
+
+        “呼～”
+
+        李恒吐了口浊气，握着扫把的手越攥越紧。
+
+        “快了…”
+
+        “一千年…”
+
+        “计划马上就能成了…”
+
+        “待我将地府所有地方都签到完，拿到所有奖励，就可以转世投胎了！”
+
+        “下一世，定要成为天地至强者！”
+
+        想到这里，瞳孔闪烁着耀眼的光彩。
+
+        上一世，刚穿越到修仙界的时候，并没有获得签到系统。
+
+        修炼三百多年，被仇人所杀，灵魂进入地府。
+
+        结果，在阎王殿接受审判时，开启签到系统。
+
+        说实话，这个系统开启的方式，实在是有点奇葩。
+
+        但是，李恒仔细一想，感觉这是一个千载难逢的机会。
+
+        因为他发现，在地府里面可以签到，拿到的奖励，放在系统空间内，可以带出地府。
+
+        也就是说，下一世投胎，自己也是可以拥有这些东西的。
+
+        想通这一点后，心中涌现出一个非常疯狂的计划。
+
+        那就是…
+
+        苟在地府签到！
+
+        将这里所有的签到奖励全部拿到手，再去转世投胎。
+
+        这样不就等于在起跑线上，领先别人一大截？
+
+        于是乎，李恒就在地府谋了个杂役阴差的职位。
+
+        以打扫地府为理由，将整个地府，包括十八层地狱，都游荡了一遍。
+
+        每打扫到一个地方，就在那个地方签到。
+
+        就这样，过去一千年的时间。
+
+        这一千年签到，能够获得多少奖励？
+
+        绝对可以用海量来形容。
+
+        系统每天都可以签到一次。
+
+        一年三百六十五次。
+
+        一千年…
+
+        便是三十六万五千次。
+
+        而且，在地狱签到，越到深处，奖励就越好。
+
+        这次签到后，脑海中响起提示音。
+
+        “叮！您已经在地府签到千年时间，在地府所有地点完成签到！您获得地府签到终极奖励，万古仙魔神体！”
+
+        万古仙魔神体，三千六百万种修仙体质中，最强神体。
+
+        李恒眉毛一挑，心中涌现出喜悦的情绪。
+
+        一千年的签到，不仅让他在地府拿到大量宝物，还得到万古最强神体。
+
+        这一切努力很值得。
+
+        “叮！请注意，想要融合万古仙魔神体，必须在胎儿时期，否则将无法融合成功。”
+
+        李恒微微点头。
+
+        许多强大的体质，在融合的时候都会有苛刻的要求。
+
+        万古仙魔神体的要求，只是在胎儿时期融合，倒也不算太过于苛刻。
+
+        等投胎的时候，选择融合这个体质就可以了。
+
+        “地府所有地点都签到过了…”
+
+        “看来…”
+
+        “是该去投胎了！”
+
+        李恒心中很是期待。
+
+        为了投胎的这一刻，已经准备千年时间。
+
+        就为的是给下一世做好准备。
+
+        在投胎前，就比别人提前准备一千年，绝对没人比他更强。
+
+        …
+
+        阎王殿。
+
+        阎王端坐在书案前，抬头看着眼前的青年。
+
+        “李恒，你真的准备卸去职位，去投胎了？”
+
+        “嗯。”李恒轻轻点头。
+
+        “好，这千年来，你为地府尽心尽职，从未出过差错…”阎王拿起一个册子，翻看着李恒千年来的记录。
+
+        加入地府，成为阴差，也并非永远都是阴差。
+
+        只要有心想去投胎，就可以选择卸掉职位，去转世轮回。
+
+        而且，身为阴差，能够积阴德，下辈子转世投胎，能够投个好人家。
+
+        阎王将册子合上，眼睛看向前面的青年。
+
+        “李恒，为地府做事一千年，积攒千年阴德。”
+
+        “这次投胎，你将会投进一个修仙世家！”
+
+        “只要你辛勤修炼，未来必将有一番成就！”
+
+        为地府做事千年，已经算是大阴德一件。
+
+        转世投胎，起点会比普通人高上许多。
+
+        “多谢阎王！”李恒双手合十，行了一礼。
+
+        心中则是窃喜。
+
+        原本就积攒了千年的签到奖励，再投胎个大户人家，下辈子，绝对可以在修仙路上走的更远。
+
+        “好了，卸去你这身阴差的行头，随着牛头马面去投胎吧。”阎王对着门口站着的牛头、马面使了个眼色。
+
+        “遵命！”牛头立刻应声，先一步走到大殿门口，对着外面指去。
+
+        “请吧，先随我去奈何桥，喝下孟婆汤。”
+
+        按照地府规矩，任何人想要去投胎，都要喝下孟婆汤，忘掉前世记忆。
+
+        身为阴差也不会例外。
+"""
+
+res = cut_sentence(story)
+res = res.split('\n')
+res = list(filter(lambda x: x.strip() != '', res))
+print(res)

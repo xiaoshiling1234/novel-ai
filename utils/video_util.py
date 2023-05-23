@@ -24,17 +24,21 @@ def image_and_audio_to_video(image_file, audio_file, video_file, width, height):
     duration = round(float(json.loads(result.stdout)["format"]["duration"]))  # 四舍五入为整数
 
     # 定义一些可能的动画效果的参数
-    effects = ["fade", "zoompan", "rotate"]
+    effects = ["fade", "rotate", "negate", "hflip"]
+    # effects = ["fade"]
     effect = random.choice(effects)  # 随机选择一个效果
     if effect == "fade":
         # 淡入淡出效果
         vf = f"fade=t=in:st=0:d=1,fade=t=out:st={duration - 1}:d=1"
-    elif effect == "zoompan":
-        # 缩放平移效果
-        vf = f"zoompan=z='min(zoom+0.0015,1.5)':d={duration * 30 - 30}:x='if(gte(zoom,1.5),x,x+1/a)':y='if(gte(zoom,1.5),y,y+1)':s={width}x{height}"
     elif effect == "rotate":
         # 旋转效果
         vf = f"rotate=PI*t/8:ow={width}:oh={height},format=yuv420p"
+    elif effect == "negate":
+        # 反色效果
+        vf = "negate"
+    elif effect == "hflip":
+        # 水平翻转效果
+        vf = "hflip"
     # 定义ffmpeg命令行参数列表
     cmd = ["ffmpeg", "-y", "-loop", "1", "-i", image_file, "-i", audio_file, "-c:v", "libx264", "-tune", "stillimage",
            "-c:a",
@@ -101,13 +105,12 @@ def merge_mp4_files(input_folder, output_file):
     # 删除临时的文本文件
     os.remove(list_file)
 
-
 # if __name__ == '__main__':
-#     merge_mp4_files(r"D:\novel-ai\data\output\爽文\story_1\fragment",
-#                     r"D:\novel-ai\data\output\爽文\story_1\result.mp4")
-    # image_path = "../data/output/爽文/story_1/picture/2.png"
-    # audio_path = "../data/output/爽文/story_1/voice/2.wav"
-    # output_path = "../data/output/爽文/story_1/fragment/2.mp4"
+#     merge_mp4_files(r"D:\novelai\data\output\爽文\story_1\fragment",
+#                     r"D:\novelai\data\output\爽文\story_1\result.mp4")
+# image_path = "../data/output/爽文/story_1/picture/2.png"
+# audio_path = "../data/output/爽文/story_1/voice/2.wav"
+# output_path = "../data/output/爽文/story_1/fragment/2.mp4"
 #
 #     # 测试一下函数
 #     image_and_audio_to_video(image_path, audio_path, output_path, 640, 480)

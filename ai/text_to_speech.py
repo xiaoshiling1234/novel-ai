@@ -28,9 +28,9 @@ def text_to_wav(Text, output_file):
         req = models.TextToVoiceRequest()
         params = {
             "Text": Text,
-            "SessionId": "sdasdasdasd",
+            "SessionId": "novelai",
             "Volume": 0,
-            "Speed": 1.2,
+            "Speed": 0,
             "ProjectId": 0,
             "ModelType": 1,
             "VoiceType": 101054,

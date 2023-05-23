@@ -1,5 +1,6 @@
 import time
 
+import common_config
 from core import generate_subtask
 from core import generate_voice
 from core import generate_img
@@ -23,7 +24,9 @@ if __name__ == '__main__':
     print("合成音频运行时长：", time.time() - time_start_tmp)
     time_start_tmp = time.time()
     print("-----------------------开始AI绘图-----------------------")
-    generate_img.generate_img(task_path, out_root_dir)
+    # 可能会失败，直接跑多次，已生成的图片不会重跑
+    # for i in range(common_config.MAX_RETRY_TIMES):
+    #     generate_img.generate_img(task_path, out_root_dir)
     print("AI绘图运行时长：", time.time() - time_start_tmp)
     time_start_tmp = time.time()
     print("-----------------------开始合成视频片段-----------------------")

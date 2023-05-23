@@ -34,5 +34,5 @@ def text_to_image(prompt, negative_prompt, out_path, steps=SD_DEFAULT_STEPS, bat
 #     text_to_image(
 #         "Sun WuKong watched in Heaven for more than half a month.,best quality ,masterpiece, illustration, an extremely delicate and beautiful, extremely detailed ,CG ,unity ,8k wallpaper"
 #         , NEGATIVE
-#         , r"D:\novel-ai\ai\out.png"
+#         , r"D:\novelai\ai\out.png"
 #         , steps=50)

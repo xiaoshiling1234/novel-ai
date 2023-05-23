@@ -15,6 +15,7 @@ pip install moviepy
 python.exe -m pip install --upgrade pip
 pip install --upgrade tencentcloud-sdk-python
 pip install opencv-python
+
 下载ffmpeg
 https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl-shared.zip
 

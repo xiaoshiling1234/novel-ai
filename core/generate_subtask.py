@@ -7,12 +7,29 @@ from ai import prompt_generator
 from ai.cn_trans_to_en import cn_trans_to_en
 from common_config import *
 from utils import excel_util
-from utils.chat_gpt_util import chat_model_prompt_1
+from utils.chat_gpt_util import chat_model_prompt_1, split_sentences
 
 
-def cut_sentence(text):
-    s = SnowNLP(text)
-    return s.sentences
+# def cut_sentence(text):
+#     s = SnowNLP(text)
+#     return s.sentences
+
+def cut_sentence(story):
+    story = story.replace("\n", "").replace(" ", "")
+    sentences = story.split("。")
+    # 考虑有最大长度限制
+    mini_sentence = ""
+    res = ""
+    for sentence in sentences:
+        if len(mini_sentence + sentence) > 500:
+            res += split_sentences(mini_sentence)+"\n"
+            mini_sentence = sentence
+        else:
+            mini_sentence += sentence
+    res += split_sentences(mini_sentence)
+    res = res.split('\n')
+    res = list(filter(lambda x: x.strip() != '', res))
+    return res
 
 
 def generate_subtask(task_path, out_root_dir):

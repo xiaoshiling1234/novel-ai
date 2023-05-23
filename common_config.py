@@ -5,7 +5,7 @@ WAV_CONFIG_SAMPLERATE = 16000
 WAV_CONFIG_CHANNELS = 1
 WAV_CONFIG_BITSPERSAMPLE = 16
 
-SD_TXT_TO_IMG_URL = "http://region-3.seetacloud.com:12744/sdapi/v1/txt2img"
+SD_TXT_TO_IMG_URL = "https://u67953-9e38-26fc4777.neimeng.seetacloud.com:6443/sdapi/v1/txt2img"
 SD_DEFAULT_BATCH_SIZE = 1
 SD_DEFAULT_N_ITER = 1
 SD_DEFAULT_STEPS = 20
@@ -36,3 +36,6 @@ MAX_WORKERS = 4
 # chatgpt
 API_2D_OPENAI_CHAT_URL = "https://openai.api2d.net/v1/chat/completions"
 API_2D_FORWARD_KEY = "fk200442-MEUXSd5vgIxgF42TJKcOlRO91EMXGHs7"
+
+OPEN_AI_SECRET_KEY = "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"
+OPENAI_CHAT_URL = "https://api.openai.com/v1/chat/completions"
