@@ -3,7 +3,7 @@ from flask import current_app, jsonify, request, g
 
 from novel import db
 from novel.api_1_0 import api
-from novel.novel_models import NovelTask
+from novel.novel_models import NovelTask,NovelSubTask
 from novel.utils.response_code import RET
 
 
@@ -45,7 +45,7 @@ def update_tasks(task_id):
 # 子任务相关API
 
 @api.route('/novel/subtasks')
-def get_tasks():
+def get_subtasks():
     """
     获取用户的任务列表
     :return: 任务详情
@@ -54,7 +54,7 @@ def get_tasks():
 
 
 @api.route('/novel/subtasks', methods=['POST'])
-def add_tasks():
+def add_subtasks():
     """
     新增一个任务
     :return: 返回响应结果
@@ -63,7 +63,7 @@ def add_tasks():
 
 
 @api.route('/novel/subtasks/<int:task_id>', methods=['DELETE'])
-def delete_tasks(task_id):
+def delete_subtasks(task_id):
     """
     删除一个任务
     :return: 返回响应结果
@@ -72,7 +72,7 @@ def delete_tasks(task_id):
 
 
 @api.route('/novel/subtasks/<int:task_id>', methods=['PUT'])
-def update_tasks(task_id):
+def update_subtasks(task_id):
     """
     修改一个任务
     :return: 返回响应结果
