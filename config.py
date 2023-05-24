@@ -15,7 +15,7 @@ class Config(object):
     SECRET_KEY = 'ix4En7l1Hau10aPq8kv8tuzcVl1s2Zo6eA+5+R+CXor8G3Jo0IJvcj001jz3XuXl'
 
     # orm连接数据库
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@127.0.0.1:3306/ihome'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@127.0.0.1:3306/novel'
     # 是否开启追踪
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     # 显示sql语句
@@ -46,7 +46,7 @@ class UnitTestConfig(Config):
     """单元测试配置子类"""
     # logging等级
     LOGGIONG_LEVEL = logging.DEBUG
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@127.0.0.1:3306/ihome_test'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:root@127.0.0.1:3306/novel_test'
 
 
 class ProductionConfig(Config):
@@ -54,8 +54,8 @@ class ProductionConfig(Config):
     # logging等级
     LOGGIONG_LEVEL = logging.WARNING
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@47.106.93.190:3306/ihome'
-    REDIS_HOST = '47.106.93.190'
+    SQLALCHEMY_DATABASE_URI = 'mysql://root:mysql@fastsay.cn:3306/novel'
+    REDIS_HOST = 'fastsay.cn'
 
 
 # 工厂函数原材料
