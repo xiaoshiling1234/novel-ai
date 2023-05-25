@@ -800,4 +800,3 @@
 #         else:
 #             req.add_header("Accept", "application/xml")
 #             req.add_header("Content-Type", "application/xml;charset=utf-8")
-#

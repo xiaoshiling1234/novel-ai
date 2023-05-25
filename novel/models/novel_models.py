@@ -12,8 +12,9 @@ class NovelTask(BaseModel, db.Model):
     __tablename__ = 'novel_task'
 
     id = db.Column(db.String(16), default=generate_uuid(), primary_key=True)  # 任务id，16位uuid
+    user_id = db.Column(db.String(16), nullable=False)  # 用户id
     story = db.Column(db.String(3000), nullable=False)  # 故事内容，暂时限定长度不超过3000字
-    category = db.Column(db.Integer, nullable=False)  # 故事分类
+    category = db.Column(db.String(128), nullable=False)  # 故事分类
     story_name = db.Column(db.String(512), nullable=False)  # 故事名称
     status = db.Column(db.String(512), default='未完成', nullable=False)  # 任务状态
     video_path = db.Column(db.String(128), default='')  # 生成视频存放路径
