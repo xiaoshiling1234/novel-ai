@@ -4,7 +4,7 @@ from flask import request, jsonify, current_app, g
 
 from novel import db
 from novel.api_1_0 import api
-from novel.models import Order, House
+from novel.models.user_models import Order, House
 from novel.utils.common import login_required
 from novel.utils.response_code import RET
 

@@ -3,7 +3,7 @@ from flask import g, current_app, jsonify, session, request
 
 from novel import db, constants
 from novel.api_1_0 import api
-from novel.models import User
+from novel.models.user_models import User
 from novel.utils.common import login_required
 from novel.utils.qiniu_image_storage import upload_image
 from novel.utils.response_code import RET

@@ -2,13 +2,8 @@ from datetime import datetime
 
 from novel import constants
 from novel import db
+from novel.models import BaseModel
 from novel.utils.string_util import generate_uuid
-
-
-class BaseModel(object):
-    """模型基类"""
-    create_time = db.Column(db.DateTime, default=datetime.now())  # 记录模型类创建时间
-    update_time = db.Column(db.DateTime, default=datetime.now, onupdate=datetime.now())  # 记录模型类更新时间
 
 
 class NovelTask(BaseModel, db.Model):

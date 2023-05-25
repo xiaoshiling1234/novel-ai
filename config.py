@@ -34,6 +34,7 @@ class Config(object):
     SESSION_USE_SIGNER = True
     # 設置session的会话的超时时长 ：一天,全局指定
     PERMANENT_SESSION_LIFETIME = 3600 * 24
+    JSON_AS_ASCII = False
 
 
 class DevelopConfig(Config):
